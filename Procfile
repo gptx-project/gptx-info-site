@@ -1,1 +1,1 @@
-web: python start.py
+web: PYTHONPATH=/app/src uvicorn gptx.main:app --host 0.0.0.0 --port $PORT

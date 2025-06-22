@@ -13,16 +13,9 @@ sys.path.insert(0, str(src_path))
 
 # Import and run the application
 if __name__ == "__main__":
-    import uvicorn
-    from gptx.main import app
-    
     # Get port from environment or default to 8000
     port = int(os.environ.get("PORT", 8000))
     
-    # Run the application
-    uvicorn.run(
-        app,
-        host="0.0.0.0",
-        port=port,
-        log_level="info"
-    )
+    # Use os.system to run uvicorn with the correct module path
+    cmd = f"uvicorn gptx.main:app --host 0.0.0.0 --port {port} --log-level info"
+    os.system(cmd)
