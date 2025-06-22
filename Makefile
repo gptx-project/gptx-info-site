@@ -1,4 +1,4 @@
-.PHONY: help install dev-install lint test security docs validate-all clean format type-check
+.PHONY: help install dev-install lint test security docs validate-all clean format type-check stop cleanup deploy-railway
 .DEFAULT_GOAL := help
 
 help: ## Show this help message
@@ -84,6 +84,21 @@ run: ## Run the application
 
 dev: ## Run the application in development mode
 	poetry run uvicorn gptx.main:app --reload --host 0.0.0.0 --port 8000
+
+stop: ## Stop development server and clean up processes
+	@echo "🛑 Stopping development server..."
+	@pkill -f "python scripts/dev_server.py" || true
+	@pkill -f "uvicorn gptx.main:app" || true
+	@pkill -f "port 8005" || true
+	@pkill -f "port 8000" || true
+	@echo "✅ Development server stopped!"
+
+cleanup: stop clean ## Stop server and clean up all artifacts
+	@echo "🧹 Complete cleanup finished!"
+
+deploy-railway: ## Deploy to Railway platform
+	@echo "🚀 Deploying GPTX Exchange to Railway..."
+	./scripts/deploy_railway.sh
 
 build: ## Build the package
 	poetry build

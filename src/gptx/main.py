@@ -101,7 +101,7 @@ def main() -> None:
     uvicorn.run(
         "gptx.main:app",
         host=settings.HOST,
-        port=settings.PORT,
+        port=settings.port,
         reload=settings.DEBUG,
         log_level="info" if settings.DEBUG else "warning",
     )

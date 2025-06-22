@@ -26,6 +26,13 @@ class Settings(BaseSettings):
     PORT: int = 8000
     ENVIRONMENT: str = "development"
     LOG_LEVEL: str = "INFO"
+    
+    # Railway deployment support
+    @property
+    def port(self) -> int:
+        """Get port from Railway's PORT env var or fallback to default."""
+        import os
+        return int(os.getenv("PORT", self.PORT))
 
     # Database
     DATABASE_URL: str = "sqlite:///./gptx.db"
