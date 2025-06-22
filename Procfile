@@ -1,1 +1,1 @@
-web: poetry run uvicorn gptx.main:app --host 0.0.0.0 --port $PORT
+web: uvicorn src.gptx.main:app --host 0.0.0.0 --port $PORT
